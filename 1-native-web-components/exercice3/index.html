@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 3 - Style et Shadow DOM</title>
+    <style>
+        /* Ce style global ne devrait PAS affecter le composant */
+        p {
+            color: red;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exercice 3 - Style et Shadow DOM</h1>
+
+    <p>Ce paragraphe est rouge (style global)</p>
+
+    <hello-world></hello-world>
+    <hello-world name="Alice"></hello-world>
+
+    <p>Ce paragraphe est aussi rouge (style global)</p>
+
+    <script src="hello-world.js"></script>
+
+    <hr>
+    <p><em>Les composants hello-world sont bleus et en gras, isolés du style global !</em></p>
+</body>
+</html>
