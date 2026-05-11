@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Components Natifs vs React - Comparaison</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        .comparison-table td {
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .comparison-table tr:hover {
+            background-color: #e8eaf6;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .keyword {
+            color: #c678dd;
+        }
+
+        .string {
+            color: #98c379;
+        }
+
+        .function {
+            color: #61afef;
+        }
+
+        .comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        .label {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .summary-table th {
+            background: #667eea;
+            color: white;
+        }
+
+        .summary-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .recommendations {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .recommendation-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .recommendation-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .recommendation-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .recommendation-card li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .recommendation-card li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .recommendations {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔄 Web Components Natifs vs React</h1>
+            <p>Tableau Comparatif des Concepts et Syntaxes</p>
+        </header>
+
+        <div class="content">
+            <!-- Section 1: Création d'un composant -->
+            <div class="section">
+                <h2>📦 Création d'un composant</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Web Components Natifs</th>
+                            <th>React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="label">Classe héritant de HTMLElement</div>
+                                <p><code>class MyComponent extends HTMLElement</code></p>
+                                <p>Enregistrement avec <code>customElements.define()</code></p>
+                                <pre><code><span class="keyword">class</span> <span class="function">HelloWorld</span> <span class="keyword">extends</span> HTMLElement {
+  <span class="function">constructor</span>() {
+    <span class="keyword">super</span>();
+  }
+}
+
+customElements.<span class="function">define</span>(<span class="string">'hello-world'</span>, HelloWorld);</code></pre>
+                            </td>
+                            <td>
+                                <div class="label">Fonction ou Classe React</div>
+                                <p>Fonction retournant du JSX ou classe React</p>
+                                <pre><code><span class="keyword">function</span> <span class="function">HelloWorld</span>() {
+  <span class="keyword">return</span> <span class="string">&lt;p&gt;Hello, World!&lt;/p&gt;</span>;
+}
+
+<span class="keyword">export default</span> HelloWorld;</code></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 2: Rendu -->
+            <div class="section">
+                <h2>🎨 Rendu (affichage)</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Web Components Natifs</th>
+                            <th>React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="label">connectedCallback()</div>
+                                <p>Appelé quand le composant est ajouté au DOM</p>
+                                <p>Utilise <code>innerHTML</code> ou <code>shadowRoot.innerHTML</code></p>
+                                <pre><code><span class="function">connectedCallback</span>() {
+  <span class="keyword">this</span>.innerHTML = <span class="string">`&lt;p&gt;Hello!&lt;/p&gt;`</span>;
+}</code></pre>
+                            </td>
+                            <td>
+                                <div class="label">Return JSX</div>
+                                <p>Le composant se rend automatiquement</p>
+                                <p>Retourne directement du JSX</p>
+                                <pre><code><span class="keyword">function</span> <span class="function">MyComponent</span>() {
+  <span class="keyword">return</span> <span class="string">&lt;p&gt;Hello!&lt;/p&gt;</span>;
+}</code></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 3: Props/Attributs -->
+            <div class="section">
+                <h2>📥 Props / Attributs</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Web Components Natifs</th>
+                            <th>React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="label">getAttribute() + observedAttributes</div>
+                                <p>Attributs HTML récupérés manuellement</p>
+                                <pre><code><span class="keyword">static get</span> <span class="function">observedAttributes</span>() {
+  <span class="keyword">return</span> [<span class="string">'name'</span>];
+}
+
+<span class="function">attributeChangedCallback</span>(name, oldVal, newVal) {
+  <span class="keyword">if</span> (name === <span class="string">'name'</span>) {
+    <span class="keyword">this</span>.<span class="function">render</span>();
+  }
+}
+
+<span class="function">render</span>() {
+  <span class="keyword">const</span> name = <span class="keyword">this</span>.<span class="function">getAttribute</span>(<span class="string">'name'</span>);
+  <span class="keyword">this</span>.innerHTML = <span class="string">`&lt;p&gt;Hello, ${name}!&lt;/p&gt;`</span>;
+}
+
+<span class="comment">// Utilisation:</span>
+<span class="comment">// &lt;hello-world name="Alice"&gt;&lt;/hello-world&gt;</span></code></pre>
+                            </td>
+                            <td>
+                                <div class="label">Props automatiques</div>
+                                <p>Props passées en paramètre de fonction</p>
+                                <p>Re-rendu automatique si props changent</p>
+                                <pre><code><span class="keyword">function</span> <span class="function">HelloWorld</span>({ name }) {
+  <span class="keyword">return</span> <span class="string">&lt;p&gt;Hello, {name}!&lt;/p&gt;</span>;
+}
+
+<span class="comment">// Utilisation:</span>
+<span class="comment">// &lt;HelloWorld name="Alice" /&gt;</span></code></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 4: Styles -->
+            <div class="section">
+                <h2>🎭 Styles encapsulés</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Web Components Natifs</th>
+                            <th>React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="label">Shadow DOM</div>
+                                <p>Encapsulation native avec <code>attachShadow()</code></p>
+                                <p>Styles vraiment isolés</p>
+                                <pre><code><span class="function">constructor</span>() {
+  <span class="keyword">super</span>();
+  <span class="keyword">this</span>.<span class="function">attachShadow</span>({ mode: <span class="string">'open'</span> });
+}
+
+<span class="function">render</span>() {
+  <span class="keyword">this</span>.shadowRoot.innerHTML = <span class="string">`
+    &lt;style&gt;
+      p { color: blue; font-weight: bold; }
+    &lt;/style&gt;
+    &lt;p&gt;Hello!&lt;/p&gt;
+  `</span>;
+}</code></pre>
+                            </td>
+                            <td>
+                                <div class="label">CSS Modules / styled-components</div>
+                                <p>Encapsulation par convention</p>
+                                <p>Noms de classes uniques générés</p>
+                                <pre><code><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">'./Hello.module.css'</span>;
+
+<span class="keyword">function</span> <span class="function">HelloWorld</span>() {
+  <span class="keyword">return</span> (
+    <span class="string">&lt;p className={styles.text}&gt;Hello!&lt;/p&gt;</span>
+  );
+}
+
+<span class="comment">// ou avec styled-components:</span>
+<span class="keyword">const</span> Text = styled.p<span class="string">`
+  color: blue;
+  font-weight: bold;
+`</span>;</code></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 5: État -->
+            <div class="section">
+                <h2>🔄 État (State)</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Web Components Natifs</th>
+                            <th>React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="label">Propriétés manuelles</div>
+                                <p>État géré avec propriétés de classe</p>
+                                <p>Re-rendu manuel nécessaire</p>
+                                <pre><code><span class="function">constructor</span>() {
+  <span class="keyword">super</span>();
+  <span class="keyword">this</span>.count = <span class="string">0</span>;
+}
+
+<span class="function">increment</span>() {
+  <span class="keyword">this</span>.count++;
+  <span class="keyword">this</span>.<span class="function">render</span>(); <span class="comment">// appel manuel</span>
+}</code></pre>
+                            </td>
+                            <td>
+                                <div class="label">useState Hook</div>
+                                <p>État réactif avec hooks</p>
+                                <p>Re-rendu automatique</p>
+                                <pre><code><span class="keyword">function</span> <span class="function">Counter</span>() {
+  <span class="keyword">const</span> [count, setCount] = <span class="function">useState</span>(<span class="string">0</span>);
+
+  <span class="keyword">return</span> (
+    <span class="string">&lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+      Count: {count}
+    &lt;/button&gt;</span>
+  );
+}</code></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 6: Événements -->
+            <div class="section">
+                <h2>🎯 Événements</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Web Components Natifs</th>
+                            <th>React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="label">addEventListener()</div>
+                                <p>Événements DOM natifs</p>
+                                <p>Attachement manuel dans connectedCallback</p>
+                                <pre><code><span class="function">connectedCallback</span>() {
+  <span class="keyword">this</span>.shadowRoot.<span class="function">querySelector</span>(<span class="string">'button'</span>)
+    .<span class="function">addEventListener</span>(<span class="string">'click'</span>, () => {
+      <span class="keyword">this</span>.count++;
+      <span class="keyword">this</span>.<span class="function">render</span>();
+    });
+}</code></pre>
+                            </td>
+                            <td>
+                                <div class="label">Props d'événements (onClick, etc.)</div>
+                                <p>Événements synthétiques React</p>
+                                <p>Déclaratif directement dans JSX</p>
+                                <pre><code><span class="keyword">function</span> <span class="function">Counter</span>() {
+  <span class="keyword">const</span> [count, setCount] = <span class="function">useState</span>(<span class="string">0</span>);
+
+  <span class="keyword">return</span> (
+    <span class="string">&lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+      Count: {count}
+    &lt;/button&gt;</span>
+  );
+}</code></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 7: Communication -->
+            <div class="section">
+                <h2>🔗 Communication entre composants</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Web Components Natifs</th>
+                            <th>React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="label">Custom Events</div>
+                                <p>Événements personnalisés globaux</p>
+                                <p>Communication découplée</p>
+                                <pre><code><span class="comment">// Composant émetteur</span>
+document.<span class="function">dispatchEvent</span>(
+  <span class="keyword">new</span> <span class="function">CustomEvent</span>(<span class="string">'countChanged'</span>, {
+    detail: <span class="keyword">this</span>.count
+  })
+);
+
+<span class="comment">// Composant récepteur</span>
+document.<span class="function">addEventListener</span>(<span class="string">'countChanged'</span>, (e) => {
+  <span class="keyword">this</span>.count = e.detail;
+  <span class="keyword">this</span>.<span class="function">render</span>();
+});</code></pre>
+                            </td>
+                            <td>
+                                <div class="label">Props & Callbacks</div>
+                                <p>Props parent → enfant</p>
+                                <p>Callbacks enfant → parent</p>
+                                <pre><code><span class="comment">// Parent</span>
+<span class="keyword">function</span> <span class="function">App</span>() {
+  <span class="keyword">const</span> [count, setCount] = <span class="function">useState</span>(<span class="string">0</span>);
+  <span class="keyword">return</span> (
+    <span class="string">&lt;&gt;
+      &lt;Counter onIncrement={setCount} /&gt;
+      &lt;Display count={count} /&gt;
+    &lt;/&gt;</span>
+  );
+}
+
+<span class="comment">// Enfant</span>
+<span class="keyword">function</span> <span class="function">Counter</span>({ onIncrement }) {
+  <span class="keyword">return</span> (
+    <span class="string">&lt;button onClick={() =&gt; onIncrement(p =&gt; p + 1)}&gt;
+      Increment
+    &lt;/button&gt;</span>
+  );
+}</code></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Section 8: Utilisation -->
+            <div class="section">
+                <h2>🚀 Utilisation dans le HTML</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Web Components Natifs</th>
+                            <th>React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="label">Balises HTML personnalisées</div>
+                                <p>Nom avec tiret obligatoire (standard W3C)</p>
+                                <p>Utilisable partout (HTML pur, tout framework)</p>
+                                <pre><code><span class="string">&lt;hello-world name="Alice"&gt;&lt;/hello-world&gt;
+&lt;click-counter&gt;&lt;/click-counter&gt;</span></code></pre>
+                            </td>
+                            <td>
+                                <div class="label">Composants JSX</div>
+                                <p>PascalCase obligatoire</p>
+                                <p>Uniquement dans un projet React</p>
+                                <pre><code><span class="string">&lt;HelloWorld name="Alice" /&gt;
+&lt;ClickCounter /&gt;</span></code></pre>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Résumé -->
+            <div class="section">
+                <h2>📊 Résumé des différences clés</h2>
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Critère</th>
+                            <th>Web Components Natifs</th>
+                            <th>React</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Standard</strong></td>
+                            <td>Standard Web (W3C)</td>
+                            <td>Librairie JavaScript</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Compatibilité</strong></td>
+                            <td>Tous frameworks</td>
+                            <td>Écosystème React uniquement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Encapsulation</strong></td>
+                            <td>Shadow DOM (native)</td>
+                            <td>Par convention (CSS Modules, etc.)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Réactivité</strong></td>
+                            <td>Manuelle</td>
+                            <td>Automatique</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Courbe d'apprentissage</strong></td>
+                            <td>Plus verbeux, plus bas niveau</td>
+                            <td>Plus abstrait, plus simple</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tooling</strong></td>
+                            <td>Vanilla JS possible</td>
+                            <td>Nécessite build (Babel, Webpack/Vite)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Écosystème</strong></td>
+                            <td>Limité</td>
+                            <td>Très riche (hooks, libraries, etc.)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Recommandations -->
+            <div class="section">
+                <h2>💡 Quand utiliser quoi ?</h2>
+                <div class="recommendations">
+                    <div class="recommendation-card">
+                        <h3>Web Components Natifs</h3>
+                        <ul>
+                            <li>Composants réutilisables entre différents frameworks</li>
+                            <li>Widgets/plugins intégrables partout</li>
+                            <li>Projets sans build complexe</li>
+                            <li>Besoin d'isolation stricte des styles</li>
+                        </ul>
+                    </div>
+                    <div class="recommendation-card">
+                        <h3>React</h3>
+                        <ul>
+                            <li>Applications complètes avec UI complexe</li>
+                            <li>Besoin de réactivité automatique</li>
+                            <li>Écosystème riche (routing, state management, etc.)</li>
+                            <li>Développement rapide avec tooling moderne</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
