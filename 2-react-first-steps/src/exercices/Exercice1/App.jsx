@@ -10,7 +10,7 @@ export default function App() {
       </p>
 
       {/* Une fois Greeting.jsx complété, cette ligne affichera "Hello Alice !" */}
-      <Greeting name="Alice" />
+      <Greeting firstName="Alice" lastName="Smith" />
     </div>
   )
 }

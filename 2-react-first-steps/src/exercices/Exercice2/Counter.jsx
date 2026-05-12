@@ -7,10 +7,15 @@
 import { useState } from "react"
 
 function Counter() {
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0); // [obj, f()]
 
     const increment = () => {
         setCount(count + 1)
+    }
+
+    const customIncrement = () => {
+        count++;
+        // forceUpdate();
     }
 
     const decrement = () => {
@@ -20,7 +25,7 @@ function Counter() {
     return (
         <div>
             <p>Compteur: {count}</p>
-            <button onClick={increment}>+</button>
+            <button onClick={customIncrement}>+</button>
             <button onClick={decrement}>-</button>
         </div>
     )

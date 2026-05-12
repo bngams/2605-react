@@ -11,6 +11,7 @@ function TodoApp() {
 
     const addTodo = (newTodo) => {
         setTodos([...todos, { id: Date.now(), text: newTodo }])
+        // setTodos((prevTodos) => [...prevTodos, { id: Date.now(), text: newTodo }])
     }
 
     return (

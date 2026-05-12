@@ -6,22 +6,35 @@
 import { useState, useEffect } from "react"
 
 function TodoFetch() {
+    const [loading, setLoading] = useState(true)
     const [todos, setTodos] = useState([])
+
+   
+    // useEffect( function, dependencies )
+    // dependencies: [] => useEffect s'exécute une seule fois au montage du composant (componentDidMount)
+    // dependencies: [todos] => useEffect s'exécute à chaque fois que "todos" change
 
     useEffect(() => {
         fetch("https://dummyjson.com/todos?limit=10")
             .then((response) => response.json())
-            .then((data) => setTodos(data.todos))
+            .then((data) => {
+                setTodos(data.todos)
+                setLoading(false)
+            })
     }, [])
 
     return (
         <div>
             <h2>Todos depuis l'API</h2>
-            <ul>
-                {todos.map((todo) => (
-                    <li key={todo.id}>{todo.todo}</li>
-                ))}
-            </ul>
+            {loading ? (
+                <p>Loading...</p>
+            ) : (
+                <ul>
+                    {todos.map((todo) => (
+                        <li key={todo.id}>{todo.todo}</li>
+                    ))}
+                </ul>
+            )}
         </div>
     )
 }
