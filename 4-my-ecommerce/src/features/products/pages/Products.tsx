@@ -14,7 +14,8 @@ function Products() {
     // Utiliser le composant ProductList pour afficher les products
     return (
         <>
-            <h1>Products</h1>
+            {/* TODO: avoid repeating the same code / classes for the title in each page => create a reusable component (ex: PageTitle) or use a common layout component for all pages */}
+            <h1 className="text-3xl font-bold">Products</h1>
             <ProductList products={products} />
         </>
     );

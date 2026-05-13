@@ -1,4 +1,4 @@
-import { CartProvider } from "./features/cart/providers/CartProvider";
+import CartProvider from "./features/cart/providers/CartProvider";
 
 function GlobalProvider({ children }: { children: React.ReactNode }) {
     return (

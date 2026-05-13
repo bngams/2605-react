@@ -2,10 +2,12 @@ import type { NavItem } from "./models/NavItems";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Products from "./features/products/pages/Products";
+import Cart from "./features/cart/pages/Cart";
 
 const navItems: NavItem[] = [
-    { path: "/", label: "Home", component: Home },
-    { path: "/about", label: "About", component: About },
-    { path: "/products", label: "Products", component: Products }
+    { path: "/", label: "Home", displayMenu: true, component: Home },
+    { path: "/about", label: "About", displayMenu: true, component: About },
+    { path: "/products", label: "Products", displayMenu: true, component: Products },
+    { path: "/cart", label: "Cart", displayMenu: false, component: Cart },
 ];
 export default navItems;
