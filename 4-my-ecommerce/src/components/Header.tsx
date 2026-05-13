@@ -16,7 +16,7 @@ function Header() {
             <div className="flex items-center justify-between">
                 <AppTitle title="My E-commerce" className="text-white" />
                 <nav className="">
-                    <ul className="flex space-x-4">
+                    <ul className="flex items-center space-x-4">
                         {navItems.filter(item => item.displayMenu).map((item) => (
                             <li key={item.path}>
                                 <Link to={item.path}>{item.label}</Link>

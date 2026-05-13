@@ -1,7 +1,9 @@
+import PageTitle from "@/components/theming/titles/PageTitle";
+
 function About() {
     return (
         <div className="container">
-            <h1 className="text-3xl font-bold">About</h1>
+            <PageTitle text="About" />
         </div>
     );
 }

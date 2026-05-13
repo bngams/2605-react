@@ -3,6 +3,7 @@ import type { Product } from "../models/Product";
 import { CartContext } from "@/features/cart/contexts/CartContext";
 import React, { useContext } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 //ProductCard(props: {product: Product})
 function ProductCard({ product } : {product: Product, children?: React.ReactNode}) {
@@ -35,7 +36,7 @@ function ProductCard({ product } : {product: Product, children?: React.ReactNode
             <div className="flex justify-center">
               <img className="max-w-[250px] max-h-[250px]" src={product.thumbnail} alt={product.title} />
             </div>
-            <button onClick={addProductToCart}>Add to cart</button>
+            <Button onClick={addProductToCart}>Add to cart</Button>
           </CardContent>
         </Card>
     );
