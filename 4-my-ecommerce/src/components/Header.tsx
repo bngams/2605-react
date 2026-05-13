@@ -1,11 +1,18 @@
 import navItems from "../routes";
 import { Link } from "react-router";
+import AppTitle from "./theming/titles/AppTitle";
+import { ShoppingBag } from "lucide-react";
+import { CartContext } from "@/features/cart/context/CartContext";
+import { useContext } from "react";
 
 function Header() { 
+    
+    const { cart } = useContext(CartContext);
+
     return (
         <header className="bg-gray-800 text-white p-4">
             <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold">My E-commerce</h1>
+                <AppTitle title="My E-commerce" className="text-white" />
                 <nav className="">
                     <ul className="flex space-x-4">
                         {navItems.map((item) => (
@@ -13,6 +20,7 @@ function Header() {
                                 <Link to={item.path}>{item.label}</Link>
                             </li>
                         ))}
+                        <li className="flex"><ShoppingBag size="24"/>{cart.items.length}</li>
                     </ul>
                 </nav>
             </div>

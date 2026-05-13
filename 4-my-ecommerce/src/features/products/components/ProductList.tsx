@@ -1,4 +1,4 @@
-import type { Product } from "@/models/Products";
+import type { Product } from "@/features/products/models/Products";
 import ProductCard from "./ProductCard";
 
 // compléter le type (prendre exemple sur ProductCard)

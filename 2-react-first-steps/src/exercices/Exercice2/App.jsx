@@ -1,6 +1,7 @@
 import Counter from './Counter.jsx'
 
 export default function App() {
+  const [count, setCount] = useState(0);
   return (
     <div className="exercice">
       <h2>Gestion d'état avec useState</h2>
@@ -9,7 +10,8 @@ export default function App() {
         <strong> +</strong> et un bouton <strong>−</strong>.
       </p>
 
-      <Counter />
+      <Counter count={count}  />
+      <Counter count={count}  />
     </div>
   )
 }

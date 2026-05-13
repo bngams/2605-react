@@ -1,5 +1,5 @@
-import ProductList from "@/components/ProductList";
-import type { Product } from "@/models/Products";
+import ProductList from "@/features/products/components/ProductList";
+import type { Product } from "@/features/products/models/Products";
 import { useEffect, useState } from "react";
 
 function Products() {
